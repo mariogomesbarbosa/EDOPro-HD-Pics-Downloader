@@ -24,6 +24,11 @@ def get_new_fields(pages=1):
     return new_fields
 
 
+def get_token_list(card_list):
+    """Used to get tokens by adding 1 for every id from a list"""
+    return [str(int(card_id) + 1) for card_id in card_list if card_id]
+
+
 def get_website_page_cards(flags, offset=0):
     """Return a list of id in a page from the website"""
     url = f'https://db.ygoprodeck.com/search/?{flags}&offset={offset}&view=List'
