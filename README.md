@@ -41,6 +41,7 @@ The size of game default card pic is 177x254 and the pics downloaded by this pro
 #### 👍:
 - Windows 10, 11;
 - All released TCG/OCG cards;
+- All tokens;
 - Some pre-released (beta) TCG/OCG cards;
 - Some Rush cards.
 #### 👎:
