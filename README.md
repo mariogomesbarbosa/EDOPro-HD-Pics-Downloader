@@ -1,6 +1,6 @@
 # [EDOPro/YGOPro](https://discord.gg/ygopro-percy) HD Pics Downloader
 
-![Program version](https://img.shields.io/badge/Version-2.3.0-blueviolet?style=flat-square)
+![Program version](https://img.shields.io/badge/Version-2.3.1-blueviolet?style=flat-square)
 ![Python version](https://img.shields.io/badge/Python-3.10-blue?style=flat-square)
 ![Pygame version](https://img.shields.io/badge/Pygame-2.1-green?style=flat-square)
 [![Donate](https://img.shields.io/badge/Donate-Paypal-blue?style=flat-square)](https://www.paypal.com/donate?hosted_button_id=L53Z8HUNP7X66)
@@ -18,15 +18,16 @@ The method is simple, a python script gets a list of cards ids in a ydk file and
 The size of game default card pic is 177x254 and the pics downloaded by this program is 421x614 (139% larger and 142% taller). 
 
 ## Instalation:
-- Download [exe](https://github.com/AlexsanderRST/edopro-hq-pics-downloader/blob/30799522aaee38cc0c15436482f4f876b8fc15f9/HQ%20Pics%20Downloader.exe) (~9 MB) 
-- **or** [py](https://github.com/AlexsanderRST/edopro-hq-pics-downloader/blob/30799522aaee38cc0c15436482f4f876b8fc15f9/HQ%20Pics%20Downloader.py) (~21 kb) (⚠️[Python 3.10+](https://www.python.org/) and [Pygame 2.0+](https://pypi.org/project/pygame/) required);
+- Download [exe](https://github.com/AlexsanderRST/edopro-hq-pics-downloader/blob/30799522aaee38cc0c15436482f4f876b8fc15f9/HQ%20Pics%20Downloader.exe) (~10 MB) 
+- **or** [py](https://github.com/AlexsanderRST/edopro-hq-pics-downloader/blob/30799522aaee38cc0c15436482f4f876b8fc15f9/HQ%20Pics%20Downloader.py) (~20 kb) (⚠️[Python 3.10+](https://www.python.org/) and [Pygame 2.0+](https://pypi.org/project/pygame/) required);
 - Copy the file into your game folder;
 - Double-click exe or py file.
 
 ## Tips:
 - **The program does NOT update automatically**. Update it may solve some issues;
-- The ydks in this repo update automatically. You don't need to download them every time an update is launched;
-- When downloading all cards, apparently, the download goes faster if all cards pics were deleted before.
+- The ydks in this repo update automatically. Download the ydks every time it is updated is not necessary;
+- When downloading all cards, apparently, the download goes faster if all cards pics were deleted before;
+- If the allcards.ydk is not deleted after the download (Use the 'Delete ydk' button): the game may open it at deck edit and severe lagging will occour.
 
 ## Now with an Interface! 
 ![interface img](https://i.ibb.co/W6qY0mk/hdcd230-2.png)

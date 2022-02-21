@@ -1,17 +1,18 @@
 """
-Created by Alexsander Rosante 2021
+Created by Alexsander Rosante 2022
 Github: https://github.com/AlexsanderRST
 """
 
 from math import sin
 from urllib import request, error
-from pygame.locals import *
+from os import remove as os_remove
 from webbrowser import open as open_url
+from pygame.locals import *
 
 import pygame
 import threading
 
-version = '2.3.0'
+version = '2.3.1'
 
 pygame.init()
 pygame.font.init()
@@ -19,7 +20,7 @@ pygame.font.init()
 # font
 default_font = 'Arial'
 
-# Colors
+# colors
 colorBackground = '#29282e'
 colorButton = '#0252b1'
 colorButtonHovered = '#1b63b8'
@@ -29,7 +30,7 @@ colorText = '#282829'
 colorDownloadbar = '#1b63b8'
 colorInputboxActive = '#00ffff'
 
-# Events
+# events
 BKSP_DOWN = USEREVENT + 1
 
 
@@ -342,19 +343,20 @@ class Text(pygame.sprite.Sprite):
 
 
 class WarningText(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, text='Deck not found'):
         super().__init__()
         self.font = pygame.font.SysFont(default_font, 28)
-        self.image = self.font.render('Deck not found!', True, (255, 0, 0))
+        self.image = self.font.render(text, True, (255, 0, 0))
         self.rect = self.image.get_rect(midbottom=inputbox.rect.midtop)
         self.rect.bottom -= 5
         self.alpha = 255
+        self.alpha_speed = -.08
 
-    def update(self, fadeout_vel=0.1):
+    def update(self):
         if self.alpha <= 0:
             self.kill()
         self.image.set_alpha(self.alpha)
-        self.alpha -= fadeout_vel
+        self.alpha += self.alpha_speed
 
 
 ########################################################################################################################
@@ -365,7 +367,7 @@ def call_download_ui():
     global download_mode
     download_mode = 1
     app.group.remove(*uiInput)
-    app.group.add(*uiDownload[:-2])
+    app.group.add(*uiDownload[:-3])
     app.clear_collision_boxes()
 
 
@@ -375,6 +377,7 @@ def call_input_ui():
     app.group.remove(*uiDownload)
     app.group.add(*uiInput[:-1])
     app.clear_collision_boxes()
+    buttonContinue.rect.midright = display_w / 2 - spacing, display_h / 2
 
 
 def check_version(text_size=17):
@@ -390,6 +393,30 @@ def check_version(text_size=17):
     except exceptions as e:
         log.append(f'Version not checked due {e}\n')
         return Text(f'offline', size=text_size, color='red')
+
+
+def delete_ydk():
+    try:
+        # delete the file
+        os_remove(f'deck/{cur_deck_name}.ydk')
+
+        # change the ui
+        app.group.remove(buttonDelYdk)
+        buttonContinue.rect.center = display_w / 2, display_h / 2
+        app.clear_collision_boxes()
+
+        # warning text and log
+        warning_text = WarningText(text='Deck deleted')
+        log.append(f'{cur_deck_name}.ydk deleted\n')
+
+    except OSError:
+        # warning text and log
+        warning_text = WarningText()
+        log.append(f'{cur_deck_name}.ydk not found to delete\n')
+
+    # call warning text
+    warning_text.rect.midtop = display_w / 2, buttonContinue.rect.bottom + spacing * 3
+    app.group.add(warning_text)
 
 
 def download():
@@ -416,7 +443,7 @@ def download_threaded(c, accr, deck_len):
 
 
 def download_setup(deck_name=''):
-    global deck, db_url, pics_dir, pics_ext
+    global cur_deck_name, deck, db_url, pics_dir, pics_ext
     log.append('Download setup initialized...\n')
 
     # set deck
@@ -437,7 +464,6 @@ def download_setup(deck_name=''):
     if not deck:
         app.group.add(WarningText())
         log.append(f'{deck_name}.ydk not found \n')
-
     else:
         if deck_name == 'allfields':
             db_url = 'https://storage.googleapis.com/ygoprodeck.com/pics_artgame/'
@@ -451,6 +477,7 @@ def download_setup(deck_name=''):
         call_download_ui()
         inputbox.text = ''
         download_bar.max_items = len(deck)
+        cur_deck_name = deck_name
 
         # threads setup
         for i in range(threads):
@@ -469,8 +496,8 @@ def download_complete(canceled=False):
     download_bar.width = .1
     # checks the reason of download completing
     if not canceled:
-        app.group.remove(*uiDownload[:-2])
-        app.group.add(textDownloadDone, buttonContinue)
+        app.group.remove(*uiDownload[:-3])
+        app.group.add(*uiDownload[3:])
         log.append('Download completed \n')
     else:
         download_unpause()
@@ -569,6 +596,7 @@ if __name__ == '__main__':
     exceptions = (error.URLError, error.HTTPError, ConnectionResetError, FileNotFoundError, OSError)
 
     # download states
+    cur_deck_name = ''
     counter = 0
     deck = []
     download_mode = 0
@@ -583,10 +611,10 @@ if __name__ == '__main__':
     # threads (NOT CPU ones) - the more the faster, but heavy memory cost
     threads = 20
 
-    # Input Box
+    # input box
     inputbox = InputBox()
 
-    # Buttons
+    # buttons
     buttonAllCards = Button('All cards', lambda: download_setup('allcards'))
     buttonAllFields = Button('All fields', lambda: download_setup('allfields'))
     buttonContinue = Button('Continue', call_input_ui)
@@ -598,21 +626,22 @@ if __name__ == '__main__':
     buttonDnldPause = Button('Pause', on_click=download_pause)
     buttonDlndContinue = Button('Continue', on_click=download_unpause)
     buttonDlndCancel = Button('Cancel', on_click=lambda: download_complete(canceled=True))
+    buttonDelYdk = Button('Delete ydk', delete_ydk, color='#cc0000', color_hovered='red')
 
-    # Texts
+    # texts
     textYdk = Text('.ydk', size=26, color='darkgray')
-    textDownloadDone = Text('Download completed!', size=26, color='green')
+    textDownloadDone = Text('Download completed', size=28, color='#00cc00')
     textName = Text('EDOPro HD Pics Downloader', size=20, color='#595959')
     textVersion = check_version()
 
-    # Bar
+    # bar
     download_bar = LoadingBar(460, 60, (56, 98, 150), border_size=3, text_method='item')
 
     # others
     icon_sprite = pygame.sprite.Sprite()
     icon_sprite.image = get_icon_surf()
 
-    # Rects
+    # rects
     buttonNewCards.rect.topleft = spacing, btn_exit_h + spacing
     buttonAllCards.rect.midtop = display_w / 2, btn_exit_h + spacing
     buttonAllFields.rect.topright = display_w - spacing, btn_exit_h + spacing
@@ -621,8 +650,8 @@ if __name__ == '__main__':
     inputbox.rect.midleft = spacing, display_h / 2
     textYdk.rect.midleft = inputbox.rect.right + spacing, inputbox.rect.centery
     buttonDownload.rect.midtop = inputbox.rect.centerx, inputbox.rect.bottom + spacing
-    textDownloadDone.rect.midbottom = display_w / 2, display_h / 2 - spacing
-    buttonContinue.rect.midtop = display_w / 2, display_h / 2 + spacing
+    buttonContinue.rect.midright = display_w / 2 - spacing, display_h / 2
+    textDownloadDone.rect.midbottom = display_w / 2, buttonContinue.rect.top - spacing * 3
     buttonExit.rect.topright = display_w, 0
     buttonMinimize.rect.midright = buttonExit.rect.midleft
     textVersion.rect.bottomleft = spacing, display_h - spacing
@@ -631,10 +660,13 @@ if __name__ == '__main__':
     buttonDnldPause.rect.topright = download_bar.rect.centerx - spacing, download_bar.rect.bottom + spacing
     buttonDlndCancel.rect.midleft = download_bar.rect.centerx + spacing, buttonDnldPause.rect.centery
     buttonDlndContinue.rect.center = buttonDnldPause.rect.center
+    buttonDelYdk.rect.topleft = display_w / 2 + spacing, buttonContinue.rect.top
 
-    # Lists
-    uiInput = [inputbox, textYdk, buttonAllCards, buttonAllFields, buttonNewCards, buttonGit, buttonDownload]
-    uiDownload = [download_bar, buttonDnldPause, buttonDlndCancel, textDownloadDone, buttonContinue]
+    # lists
+    uiInput = [inputbox, textYdk, buttonAllCards, buttonAllFields,
+               buttonNewCards, buttonGit, buttonDownload]
+    uiDownload = [download_bar, buttonDnldPause, buttonDlndCancel,
+                  textDownloadDone, buttonContinue, buttonDelYdk]
     uiFixed = [buttonMinimize, buttonExit, textName, textVersion, icon_sprite]
     app.group.add(*uiFixed, *uiInput[:-1])
 
