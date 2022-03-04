@@ -447,7 +447,7 @@ def download_setup(deck_name=''):
     log.append('Download setup initialized...\n')
 
     # set deck
-    if deck_name not in ('newcards', 'allcards', 'allfields'):
+    if deck_name not in ('newcards', 'allcards', 'cardsartworks'):
         deck_name = inputbox.text
     else:
         url = 'https://raw.githubusercontent.com/AlexsanderRST/edopro-hd-cards-downloader/main/'
@@ -465,9 +465,9 @@ def download_setup(deck_name=''):
         app.group.add(WarningText())
         log.append(f'{deck_name}.ydk not found \n')
     else:
-        if deck_name == 'allfields':
+        if deck_name == 'cardsartworks':
             db_url = 'https://storage.googleapis.com/ygoprodeck.com/pics_artgame/'
-            pics_dir = 'pics/field/'
+            pics_dir = 'pics/'
             pics_ext = '.png'
         else:
             db_url = 'https://storage.googleapis.com/ygoprodeck.com/pics/'
@@ -547,11 +547,11 @@ def get_icon_surf(size=26):
 def inputbox_filled():
     if not download_mode:
         if inputbox.text:
-            app.group.remove(buttonAllCards, buttonAllFields, buttonNewCards)
+            app.group.remove(buttonAllCards, buttonCardsArtworks, buttonNewCards)
             app.group.add(buttonDownload)
         else:
             app.group.remove(buttonDownload)
-            app.group.add(buttonAllCards, buttonAllFields, buttonNewCards)
+            app.group.add(buttonAllCards, buttonCardsArtworks, buttonNewCards)
 
 
 def open_repo_url():
@@ -616,7 +616,7 @@ if __name__ == '__main__':
 
     # buttons
     buttonAllCards = Button('All cards', lambda: download_setup('allcards'))
-    buttonAllFields = Button('All fields', lambda: download_setup('allfields'))
+    buttonCardsArtworks = Button('Cards artworks', lambda: download_setup('cardsartworks'))
     buttonContinue = Button('Continue', call_input_ui)
     buttonGit = Button('Git', open_repo_url, width=75)
     buttonDownload = Button('Download', download_setup)
@@ -644,7 +644,7 @@ if __name__ == '__main__':
     # rects
     buttonNewCards.rect.topleft = spacing, btn_exit_h + spacing
     buttonAllCards.rect.midtop = display_w / 2, btn_exit_h + spacing
-    buttonAllFields.rect.topright = display_w - spacing, btn_exit_h + spacing
+    buttonCardsArtworks.rect.topright = display_w - spacing, btn_exit_h + spacing
     buttonGit.rect.bottomright = display_w - spacing, display_h - spacing
     download_bar.rect.center = display_w / 2, display_h / 2
     inputbox.rect.midleft = spacing, display_h / 2
@@ -663,7 +663,7 @@ if __name__ == '__main__':
     buttonDelYdk.rect.topleft = display_w / 2 + spacing, buttonContinue.rect.top
 
     # lists
-    uiInput = [inputbox, textYdk, buttonAllCards, buttonAllFields,
+    uiInput = [inputbox, textYdk, buttonAllCards, buttonCardsArtworks,
                buttonNewCards, buttonGit, buttonDownload]
     uiDownload = [download_bar, buttonDnldPause, buttonDlndCancel,
                   textDownloadDone, buttonContinue, buttonDelYdk]
