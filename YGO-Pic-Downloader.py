@@ -677,7 +677,7 @@ if __name__ == '__main__':
     # texts
     textYdk = Text('.ydk', size=26, color='darkgray')
     textDownloadDone = Text('Download completed', size=28, color='#00cc00')
-    textName = Text('EDOPro HD Pics Downloader', size=20, color='#595959')
+    textName = Text('YGO Pics Downloader', size=20, color='#595959')
     textVersion = check_version()
 
     # bar
