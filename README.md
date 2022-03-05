@@ -30,7 +30,7 @@ The method is simple, a python script gets a list of cards ids in a ydk file and
 - If the allcards.ydk is not deleted after the download (Use the 'Delete ydk' button): the game may open it at deck edit and severe lagging will occour.
 
 ## Now with an Interface! 
-![interface img](https://i.ibb.co/W6qY0mk/hdcd230-2.png)
+![interface img](https://mario-design.s3.us-east-2.amazonaws.com/YGO-Pic-Downloader-1.png)
 
 ## Features:
 - **Download all cards pics**. It may take a while since is over 9000 cards;
