@@ -14,7 +14,8 @@ This program automates the process of:
 
 # How it works?
 
-1. Put yours deck files '.ydk' on the 'deck' folder;
+1. Download the latest release [here](https://github.com/mariogomesbarbosa/YGO-Pics-Downloader/releases) and extract the content;
+2. Put yours deck files '.ydk' on the 'deck' folder;
 ![deck folder](https://mario-design.s3.us-east-2.amazonaws.com/YGO-Pic-Downloader-04.png)
 2. Open the 'YGO-Pic-Downloader.exe' (~10 MB) or 'YGO-Pic-Downloader.py' (~20 kb) (⚠️[Python 3.10+](https://www.python.org/) and [Pygame 2.0+](https://pypi.org/project/pygame/) required);
 3. Type the name of the '.ydk' file you want to download;
