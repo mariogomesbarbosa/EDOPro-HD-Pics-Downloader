@@ -14,12 +14,15 @@ This program automates the process of:
 
 # How it works?
 
-- Put yours deck files '.ydk' on the 'deck' folder;
-- Open the 'YGO-Pic-Downloader.exe' (~10 MB);
-    - Or 'YGO-Pic-Downloader.py' (~20 kb) (⚠️[Python 3.10+](https://www.python.org/) and [Pygame 2.0+](https://pypi.org/project/pygame/) required);
-- Type the name of the '.ydk' file you want to download;
-- Click on 'Cards' to download the entire card image;
-- Click on 'Artworks' to download the cropped art image.
+1. Put yours deck files '.ydk' on the 'deck' folder;
+![deck folder](https://mario-design.s3.us-east-2.amazonaws.com/YGO-Pic-Downloader-04.png)
+2. Open the 'YGO-Pic-Downloader.exe' (~10 MB) or 'YGO-Pic-Downloader.py' (~20 kb) (⚠️[Python 3.10+](https://www.python.org/) and [Pygame 2.0+](https://pypi.org/project/pygame/) required);
+3. Type the name of the '.ydk' file you want to download;
+![type ydk name](https://mario-design.s3.us-east-2.amazonaws.com/YGO-Pic-Downloader-02.png)
+5. Click on 'Cards' to download the entire card image;
+6. Click on 'Artworks' to download the cropped art image.
+7. All images will be in pic folder, under 'cards' or 'arts' folder
+![card and art downloaded](https://mario-design.s3.us-east-2.amazonaws.com/YGO-Pic-Downloader-03.png)
 
 The method is simple, a python script gets a list of cards ids in a ydk file and use link manipulation to download card per card directly into the pics folder.
 
