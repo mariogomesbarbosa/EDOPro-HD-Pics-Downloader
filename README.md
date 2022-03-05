@@ -1,27 +1,27 @@
-# [EDOPro/YGOPro](https://discord.gg/ygopro-percy) HD Pics Downloader
+# YGO Pics Downloader
 
 ![Program version](https://img.shields.io/badge/Version-2.3.1-blueviolet?style=flat-square)
 ![Python version](https://img.shields.io/badge/Python-3.10-blue?style=flat-square)
 ![Pygame version](https://img.shields.io/badge/Pygame-2.1-green?style=flat-square)
-[![Donate](https://img.shields.io/badge/Donate-Paypal-blue?style=flat-square)](https://www.paypal.com/donate?hosted_button_id=L53Z8HUNP7X66)
+
+This is a modification of the [EDOPro HD Pics Downloader](https://github.com/AlexsanderRST/EDOPro-HD-Pics-Downloader) project with the aim of including the option to download, in addition to the card images, the art images as well. All program development rights are assigned to [Alexander Rosante](https://github.com/AlexsanderRST)
 
 This program automates the process of:
 - Access [YGO Cards Database](https://db.ygoprodeck.com/); 
 - Choose a card;
-- Scroll down to 'Download JPG image' option;
-- Download it into the game's pics folder.
+- Scroll down to 'Download JPG image' or 'Download Cropped Art Image' option;
+- Download it into pics folder.
+
+# How it works?
+
+- Put yours deck files '.ydk' on the 'deck' folder;
+- Open the 'YGO-Pic-Downloader.exe' (~10 MB);
+    - Or 'YGO-Pic-Downloader.py' (~20 kb) (⚠️[Python 3.10+](https://www.python.org/) and [Pygame 2.0+](https://pypi.org/project/pygame/) required);
+- Type the name of the '.ydk' file you want to download;
+- Click on 'Cards' to download the entire card image;
+- Click on 'Artworks' to download the cropped art image.
 
 The method is simple, a python script gets a list of cards ids in a ydk file and use link manipulation to download card per card directly into the pics folder.
-
-![card comparison](https://i.ibb.co/Y49skyJ/card-comparison.png)
-
-The size of game default card pic is 177x254 and the pics downloaded by this program is 421x614 (139% larger and 142% taller). 
-
-## Instalation:
-- Download [exe](https://github.com/AlexsanderRST/edopro-hq-pics-downloader/blob/30799522aaee38cc0c15436482f4f876b8fc15f9/HQ%20Pics%20Downloader.exe) (~10 MB) 
-- **or** [py](https://github.com/AlexsanderRST/edopro-hq-pics-downloader/blob/30799522aaee38cc0c15436482f4f876b8fc15f9/HQ%20Pics%20Downloader.py) (~20 kb) (⚠️[Python 3.10+](https://www.python.org/) and [Pygame 2.0+](https://pypi.org/project/pygame/) required);
-- Copy the file into your game folder;
-- Double-click exe or py file.
 
 ## Tips:
 - **The program does NOT update automatically**. Update it may solve some issues;
@@ -37,6 +37,7 @@ The size of game default card pic is 177x254 and the pics downloaded by this pro
 - **Download all fields artworks**;
 - **Download all new cards**. New cards added to *allcards.ydk* since the last update;
 - **Download deck's cards pics**. Downloads card pics from a deck name (Text Box).
+- **Download deck's cards arts**. Downloads card arts pics from a deck name (Text Box).
 
 ## Compatibility:
 #### 👍:
@@ -48,7 +49,3 @@ The size of game default card pic is 177x254 and the pics downloaded by this pro
 #### 👎:
 - Windows 7 or lower;
 - Anime/Unofficial/Custom cards.
-
-## You can help me:
-- Open an Issue if you have problems;
-- Or [donate](https://www.paypal.com/donate?hosted_button_id=L53Z8HUNP7X66)
